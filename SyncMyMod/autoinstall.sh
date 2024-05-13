@@ -26,7 +26,7 @@
 # App Name      : Quake 2 + Quake 2 Launcher
 # Author        : BigUncleMax (Quake 2 port for Sync 3) & Au{R}oN (Quake 2 Launcher)
 # Creation date : 2024/05/13
-# Version       : 0.5
+# Version       : 0.6
 
 #########################################################################################################################################################
 #                                                               Custom App Variables                                                                    #
@@ -44,8 +44,6 @@ APP_HIDETITLE="true"		# ONLY TRUE OR FALSE ALLOWED!!
 
 # Mod Name and Version
 FANCYNAME="Quake 2"
-VERSION=$(cat ${OTHER_DIR}/quake2/version.txt)
-PREV_VERSION=$(cat ${FMODS_DATA_DIR}/Quake2/version.txt)
 
 # Developer Name
 AUTHOR="BigUncleMax"
@@ -72,6 +70,9 @@ MOD_DATA_DIR="${OTHER_DIR}/quake2"
 FMODS_DATA_DIR=/fs/images/fmods_apps_data
 INSTALLATION_DIR=${FMODS_DATA_DIR}/Quake2/
 BACKUP_DIR=${INSTALLATION_DIR}/Quake2_bak
+
+VERSION=$(cat ${OTHER_DIR}/quake2/version.txt)
+PREV_VERSION=$(cat ${INSTALLATION_DIR}/version.txt)
 
 DISPLAY=/fs/tmpfs/status
 POPUP=/tmp/popup.txt
@@ -123,7 +124,6 @@ chmod a+x /fs/rwdata/dev/*
 sleep 1
 
 /fs/rwdata/dev/instutility &
-INSTUTILITY_PID=$!
 sleep 2
 
 output "DEV ${FANCYNAME} v${VERSION} - Developed by ${AUTHOR}" 2
