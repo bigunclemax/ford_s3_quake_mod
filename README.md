@@ -61,3 +61,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed image2.img content.
 - Fixed savegame restore code.
 
+### [0.5] - 2024-05-13
+- Added current version reading from Launcher.
+- Added previous version reading from Installer.
+- Changed Menu Selector with Q2 logo (it was Q1 logo before)
+

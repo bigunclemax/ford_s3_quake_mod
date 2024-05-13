@@ -26,7 +26,7 @@
 # App Name      : Quake 2 + Quake 2 Launcher
 # Author        : BigUncleMax (Quake 2 port for Sync 3) & Au{R}oN (Quake 2 Launcher)
 # Creation date : 2024/05/13
-# Version       : 0.4
+# Version       : 0.5
 
 ###############################################################################
 # Custom App Variables                                                        #
@@ -42,9 +42,8 @@ APP_HIDETITLE="true"		# ONLY TRUE OR FALSE ALLOWED!!
 # Environment Variables                                                       #
 ###############################################################################
 
-# Mod Name and Version
+# Mod Name
 FANCYNAME="Quake 2"
-VERSION="0.4"
 
 # Developer Name
 AUTHOR="BigUncleMax"
@@ -74,6 +73,10 @@ BACKUP_DIR=${FMODS_DATA_DIR}/Quake2_bak
 
 DISPLAY=/fs/tmpfs/status
 POPUP=/tmp/popup.txt
+
+# Mod version
+VERSION=$(cat ${OTHER_DIR}/quake2/version.txt)
+PREV_VERSION=$(cat ${FMODS_DATA_DIR}/Quake2/version.txt)
 
 ###############################################################################
 # Functions                                                                   #
@@ -170,7 +173,7 @@ if [ $? -ne 0 ]; then
 	echo "/fs/mp/scripts/quake2_launcher.sh &" >> /fs/mp/scripts/startup_gf.sh
 	sleep 2
 else
-	output "Previous ${FANCYNAME} installation detected."
+	output "Previous ${FANCYNAME} version ${PREV_VERSION} detected."
 	progress 35
 	sleep 2
 
