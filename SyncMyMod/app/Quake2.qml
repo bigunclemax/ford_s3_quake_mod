@@ -154,7 +154,7 @@ Rectangle {
                 version = "Version: " + xhr.responseText
             }
         }
-        xhr.open("PUT", "file:///fs/images/fmods_apps_data/Quake2/version.txt");
+        xhr.open("GET", "file:///fs/images/fmods_apps_data/Quake2/version.txt");
         xhr.send();
     }
 
