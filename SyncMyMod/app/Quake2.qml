@@ -4,6 +4,8 @@ Rectangle {
     id: rect
     anchors.fill: parent
 
+    property string version: "";
+
     FontLoader { id: quakeFont; source: "res/dpquake_.ttf" }
 
     Image {
@@ -26,7 +28,7 @@ Rectangle {
 
         visible: !startTimer.running
 
-        text: "Q"
+        text: "~"
     }
 
     Text {
@@ -113,6 +115,47 @@ Rectangle {
             onClicked: back()
             onPressed: textlogo.anchors.verticalCenter = exitText.verticalCenter
         }
+    }
+
+    Text {
+        id: versionText
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.margins: 5
+
+        color: "#1a9c60"
+        font.family: quakeFont.name
+        font.pixelSize: 13
+        font.bold: true
+        style: Text.Outline
+        styleColor: "black"
+        text: version
+
+        MouseArea {
+            anchors.fill: parent
+            anchors.bottomMargin: 8
+            onClicked: back()
+            onPressed: textlogo.anchors.verticalCenter = exitText.verticalCenter
+        }
+    }
+
+    Timer {
+        id: versionTimer
+        running: true
+        repeat: false
+        triggeredOnStart: true
+        onTriggered: getVersion()
+    }
+
+    function getVersion() {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                version = "Version: " + xhr.responseText
+            }
+        }
+        xhr.open("PUT", "file:///fs/images/fmods_apps_data/Quake2/version.txt");
+        xhr.send();
     }
 
     function startQuake() {
