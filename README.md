@@ -55,3 +55,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [0.3] - 2024-05-10
 - Fixed a permissions issue in autoinstall.sh
 
+### [0.4] - 2024-05-13
+- Updated autoinstall.sh script to support new FMods Tools 2.6 features.
+- Minor autoinstall.sh changes.
+- Fixed image2.img content.
+- Fixed savegame restore code.
+

@@ -25,8 +25,8 @@
 
 # App Name      : Quake 2 + Quake 2 Launcher
 # Author        : BigUncleMax (Quake 2 port for Sync 3) & Au{R}oN (Quake 2 Launcher)
-# Creation date : 2024/05/07
-# Version       : 0.3
+# Creation date : 2024/05/13
+# Version       : 0.4
 
 ###############################################################################
 # Custom App Variables                                                        #
@@ -44,7 +44,7 @@ APP_HIDETITLE="true"		# ONLY TRUE OR FALSE ALLOWED!!
 
 # Mod Name and Version
 FANCYNAME="Quake 2"
-VERSION="0.3"
+VERSION="0.4"
 
 # Developer Name
 AUTHOR="BigUncleMax"
