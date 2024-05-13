@@ -43,7 +43,8 @@ APP_HIDETITLE="true"		# ONLY TRUE OR FALSE ALLOWED!!
 ###############################################################################
 
 # Mod Name and Version
-FANCYNAME="Quake 2 v0.3"
+FANCYNAME="Quake 2"
+VERSION="0.3"
 
 # Developer Name
 AUTHOR="BigUncleMax"
@@ -69,7 +70,7 @@ KEEP_SAVED_GAMES=1
 MOD_DATA_DIR="${OTHER_DIR}/quake2"
 FMODS_DATA_DIR=/fs/images/fmods_apps_data
 INSTALLATION_DIR=${FMODS_DATA_DIR}/Quake2/
-BACKUP_FOLDER=${INSTALLATION_DIR}/Quake2_bak
+BACKUP_DIR=${FMODS_DATA_DIR}/Quake2_bak
 
 DISPLAY=/fs/tmpfs/status
 POPUP=/tmp/popup.txt
@@ -77,22 +78,6 @@ POPUP=/tmp/popup.txt
 ###############################################################################
 # Functions                                                                   #
 ###############################################################################
-
-function reboot {
-	/fs/rwdata/dev/utserviceutility reboot
-}
-
-function installationTerminated {
-	while [ -e /fs/usb0 ]; do
-		sleep 1
-	done
-
-	slay -s 9 $INSTUTILITY_PID
-
-	reboot
-
-	exit 0
-}
 
 function output {
 	echo "${1}" > $DISPLAY
@@ -106,6 +91,17 @@ function progress {
 function displayMessage {
 	echo "${1}" >> $POPUP
 	/fs/rwdata/dev/utserviceutility popup $POPUP
+
+	exit 0
+}
+
+function installationTerminated {
+	while [ -e /fs/usb0 ]; do
+		sleep 1
+	done
+
+	output "REBOOT" 3
+	exit 0
 }
 
 ###############################################################################
@@ -114,8 +110,7 @@ function displayMessage {
 
 grep -q ${MODTOOLS} /fs/rwdata/dev/mods_tools.txt
 if [ $? -ne 0 ]; then
-	displayMessage "FMods Tools 2.5 not found. This app REQUIRE that package."
-	exit 0
+	displayMessage "FMods Tools 2.5 or higher not found. Installation aborted."
 fi
 
 ###############################################################################
@@ -130,7 +125,7 @@ sleep 1
 INSTUTILITY_PID=$!
 sleep 2
 
-output "DEV ${FANCYNAME} - Developed by ${AUTHOR}" 2
+output "DEV ${FANCYNAME} v${VERSION} - Developed by ${AUTHOR}" 2
 
 ###############################################################################
 # Check if Custom Apps Loader is installed                                    #
@@ -158,24 +153,24 @@ sleep 1
 # Copying new files                                                            #
 ################################################################################
 
-output "Detecting previous Quake 2 installation..."
+output "Detecting previous ${FANCYNAME} installation..."
 progress 10
 sleep 3
 
 grep "${APP_NAME}" $APIM_JSON_PATH
 if [ $? -ne 0 ]; then
-	output "Quake 2 not detected. Adding JSON entry for Apps Launcher..." 1
+	output "Previous ${FANCYNAME} installation not detected. Adding JSON entry for Apps Launcher..." 1
 	progress 25
 	mkdir -p $APIM_APPS_PATH/$APP_AUTHOR/$APP_FOLDER
 	sed -i 's#]#,{"appName":"'"${APP_NAME}"'", "appFile":"'"${APP_AUTHOR}"'/'"${APP_FOLDER}"'/'"${APP_FILE}"'", "appIcon":"'"${APP_AUTHOR}"'/'"${APP_FOLDER}"'/Icon", "appHideTitle":'${APP_HIDETITLE}'}]#g' $APIM_JSON_PATH
 	sleep 2
 
-	output "Quake 2 not detected. Adding startup entry..."
+	output "Previous ${FANCYNAME} installation not detected. Adding startup entry..."
 	progress 35
 	echo "/fs/mp/scripts/quake2_launcher.sh &" >> /fs/mp/scripts/startup_gf.sh
 	sleep 2
 else
-	output "Previous Quake 2 installation detected."
+	output "Previous ${FANCYNAME} installation detected."
 	progress 35
 	sleep 2
 
@@ -183,22 +178,22 @@ else
 	if [ ${KEEP_SAVED_GAMES} -eq 1 ]; then
 		output "Backup save game files..."
 
-		rm -rf ${BACKUP_FOLDER}
-		mkdir -p ${BACKUP_FOLDER}
-		mv ${INSTALLATION_FOLDER}/baseq2/save ${BACKUP_FOLDER}/
+		rm -rf ${BACKUP_DIR}
+		mkdir -p ${BACKUP_DIR}
+		mv ${INSTALLATION_DIR}/baseq2/save ${BACKUP_DIR}/
 	fi
 	sleep 3
 fi
 
 progress 50
-output "Installing Quake 2 Launcher files..."
-cp ${SHELL_DIR}/quake2_launcher.sh /fs/mp/scripts
-cp -R ${LOCAL_APP_PATH}/* $APIM_APPS_PATH/$APP_AUTHOR/$APP_FOLDER
+output "Installing ${FANCYNAME} App Launcher files..."
+cp ${SHELL_DIR}/quake2_launcher.sh	/fs/mp/scripts
+cp -R ${LOCAL_APP_PATH}/*	$APIM_APPS_PATH/$APP_AUTHOR/$APP_FOLDER
 chmod +x /fs/mp/scripts/quake2_launcher.sh
 sleep 3
 
 progress 70
-output "Installing Quake 2 game files... please wait.. it might take a bit."
+output "Installing ${FANCYNAME} game files... please wait.. it might take a bit."
 rm -rf ${INSTALLATION_DIR}
 mkdir -p ${INSTALLATION_DIR}
 cp -r ${MOD_DATA_DIR}/* ${INSTALLATION_DIR}/
@@ -211,11 +206,11 @@ chmod +x ${INSTALLATION_DIR}/quake2_start.sh
 sleep 1
 
 progress 85
-if [ -d ${BACKUP_FOLDER}/save ]; then
+if [ -d ${BACKUP_DIR}/save ]; then
 	echo "Restore saved games..." > $DISPLAY
 
-	mv ${BACKUP_FOLDER}/save ${INSTALLATION_FOLDER}/baseq2
-	rm -rf ${BACKUP_FOLDER}
+	mv ${BACKUP_DIR}/save ${INSTALLATION_DIR}/baseq2
+	rm -rf ${BACKUP_DIR}
 	sleep 3
 fi
 
