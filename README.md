@@ -66,3 +66,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added previous version reading from Installer.
 - Changed Menu Selector with Q2 logo (it was Q1 logo before)
 
+### [0.7] - 2024-05-14
+- Bump version to align with Fmods.net DB
+
