@@ -69,3 +69,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [0.7] - 2024-05-14
 - Bump version to align with Fmods.net DB
 
+### [0.8] - 2024-05-18
+- Add dump of installer logs and hw info to USB stick
+- Add check for error during game files copying
+

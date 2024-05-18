@@ -26,7 +26,7 @@
 # App Name      : Quake 2 + Quake 2 Launcher
 # Author        : BigUncleMax (Quake 2 port for Sync 3) & Au{R}oN (Quake 2 Launcher)
 # Creation date : 2024/05/13
-# Version       : 0.7
+# Version       : 0.8
 
 ###############################################################################
 # Custom App Variables                                                        #
