@@ -74,6 +74,10 @@ BACKUP_DIR=${FMODS_DATA_DIR}/Quake2_bak
 DISPLAY=/fs/tmpfs/status
 POPUP=/tmp/popup.txt
 
+LOG_DIR="/fs/usb0"
+LOG_FILE=/tmp/install_status.txt
+HWINFO_FILE=/tmp/hardware_info.txt
+
 # Mod version
 VERSION=$(cat ${OTHER_DIR}/quake2/version.txt)
 PREV_VERSION=$(cat ${FMODS_DATA_DIR}/Quake2/version.txt)
@@ -81,10 +85,15 @@ PREV_VERSION=$(cat ${FMODS_DATA_DIR}/Quake2/version.txt)
 ###############################################################################
 # Functions                                                                   #
 ###############################################################################
+function dump_logs {
+	cp ${LOG_FILE} ${LOG_DIR}/install_status.txt
+	sync
+}
 
 function output {
 	echo "${1}" > $DISPLAY
-	sleep ${2}
+	echo "${1}" >> $LOG_FILE
+	sleep ${2} 2> /dev/null
 }
 
 function progress {
@@ -92,6 +101,8 @@ function progress {
 }
 
 function displayMessage {
+	dump_logs
+
 	echo "${1}" >> $POPUP
 	/fs/rwdata/dev/utserviceutility popup $POPUP
 
@@ -99,6 +110,8 @@ function displayMessage {
 }
 
 function installationTerminated {
+	dump_logs
+
 	while [ -e /fs/usb0 ]; do
 		sleep 1
 	done
@@ -106,6 +119,33 @@ function installationTerminated {
 	output "REBOOT" 3
 	exit 0
 }
+
+function collectHwInfo {
+	echo "### HW INFO ###" > ${HWINFO_FILE}
+
+	echo "\n### hwid ###" >> ${HWINFO_FILE}
+	hwid >> ${HWINFO_FILE}
+
+	echo "\n### OS version ###" >> ${HWINFO_FILE}
+	cat  /fs/mp/Version.inf >> ${HWINFO_FILE}
+	echo "" >> ${HWINFO_FILE}
+
+	echo "\n### Installed mods ###" >> ${HWINFO_FILE}
+	cat /fs/mp/etc/installed_mods.txt >> ${HWINFO_FILE}
+
+	echo "\n### df -h ###" >> ${HWINFO_FILE}
+	df -h >> ${HWINFO_FILE}
+
+	cp ${HWINFO_FILE} ${LOG_DIR}/hardware_info.txt
+	sync
+}
+
+###############################################################################
+# Start mod installation                                                      #
+###############################################################################
+echo "Starting installation of ${FANCYNAME} v${VERSION}..." > $LOG_FILE
+
+collectHwInfo
 
 ###############################################################################
 # Check if FMods Tools 2.5 is installed                                       #
@@ -199,7 +239,7 @@ progress 70
 output "Installing ${FANCYNAME} game files... please wait.. it might take a bit."
 rm -rf ${INSTALLATION_DIR}
 mkdir -p ${INSTALLATION_DIR}
-cp -r ${MOD_DATA_DIR}/* ${INSTALLATION_DIR}/
+cp -rv ${MOD_DATA_DIR}/* ${INSTALLATION_DIR}/ >> $LOG_FILE
 
 progress 80
 output "Configuring files permissions..."
