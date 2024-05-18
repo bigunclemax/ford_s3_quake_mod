@@ -218,7 +218,8 @@ else
 	sleep 2
 
 	progress 40
-	if [ ${KEEP_SAVED_GAMES} -eq 1 ]; then
+	if [ ${KEEP_SAVED_GAMES} -eq 1 ] && \
+	   [ -d ${INSTALLATION_DIR}/baseq2/save ]; then
 		output "Backup save game files..."
 
 		rm -rf ${BACKUP_DIR}
