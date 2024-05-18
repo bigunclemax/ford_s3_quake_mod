@@ -241,6 +241,10 @@ output "Installing ${FANCYNAME} game files... please wait.. it might take a bit.
 rm -rf ${INSTALLATION_DIR}
 mkdir -p ${INSTALLATION_DIR}
 cp -rv ${MOD_DATA_DIR}/* ${INSTALLATION_DIR}/ >> $LOG_FILE
+if [ $? -ne 0 ]; then
+	output "ERROR Installation error. Check log on USB stick."
+	installationTerminated
+fi
 
 progress 80
 output "Configuring files permissions..."
