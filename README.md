@@ -73,3 +73,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add dump of installer logs and hw info to USB stick
 - Add check for error during game files copying
 
+### [0.9] - 2024-05-26
+- Updated autoinstall.sh script to support the new `jq` utility added in `FMods Tools 2.8`.
+- Added uninstall.sh script to manage /images data uninstall.
