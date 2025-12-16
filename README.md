@@ -76,3 +76,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [0.9] - 2024-05-26
 - Updated autoinstall.sh script to support the new `jq` utility added in `FMods Tools 2.8`.
 - Added uninstall.sh script to manage /images data uninstall.
+
+### [1.0] - 2025-02-24
+- Updated autoinstall.sh, Quake2.qml, quake2_launcher.sh
+- Added DLC The Reckoning, Ground Zero, Zaero (by Sanek2033)
+

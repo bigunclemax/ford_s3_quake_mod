@@ -15,9 +15,8 @@ Rectangle {
 
     Text {
         id: textlogo
-        anchors.verticalCenter: startGameText.verticalCenter
-        anchors.right: startGameText.left
-        anchors.rightMargin: 20
+        x: 234
+        y: 97
 
         color: "#1a9c60"
         font.family: quakeFont.name
@@ -29,11 +28,17 @@ Rectangle {
         visible: !startTimer.running
 
         text: "~"
+        anchors.verticalCenterOffset: 0
+        anchors.right: startGameText.left
+        anchors.rightMargin: 120
+        anchors.verticalCenter: startGameText.verticalCenter
+        verticalAlignment: Text.AlignTop
+        horizontalAlignment: Text.AlignLeft
     }
 
     Text {
         id: startGameText
-        anchors.centerIn: parent
+        y: 80
 
         color: "#1a9c60"
         font.family: quakeFont.name
@@ -45,10 +50,16 @@ Rectangle {
         visible: !startTimer.running
 
         text: "Start Game"
+        anchors.horizontalCenter: parent.horizontalCenter
+        verticalAlignment: Text.AlignTop
+        horizontalAlignment: Text.AlignHCenter
 
         MouseArea {
+            anchors.rightMargin: 0
+            anchors.leftMargin: 0
+            anchors.topMargin: 0
             anchors.fill: parent
-            anchors.bottomMargin: 8
+            anchors.bottomMargin: 0
             onPressed: textlogo.anchors.verticalCenter = startGameText.verticalCenter
             onReleased:	{
                 startTimer.start()
@@ -68,6 +79,8 @@ Rectangle {
 
     Text {
         id: loadingText
+        width: 197
+        height: 54
         anchors.centerIn: parent
 
         color: "#1a9c60"
@@ -80,10 +93,12 @@ Rectangle {
         visible: startTimer.running
 
         text: "Loading..."
+        anchors.verticalCenterOffset: 0
+        anchors.horizontalCenterOffset: 0
 
         MouseArea {
             anchors.fill: parent
-            anchors.bottomMargin: 8
+            anchors.bottomMargin: 0
             onPressed: textlogo.anchors.verticalCenter = startGameText.verticalCenter
             onReleased:	{
                 startTimer.start()
@@ -94,8 +109,8 @@ Rectangle {
 
     Text {
         id: exitText
-        anchors.top: startGameText.bottom
-        anchors.horizontalCenter: startGameText.horizontalCenter
+        anchors.top: startGameText3.bottom
+        anchors.horizontalCenter: startGameText3.horizontalCenter
         anchors.topMargin: 30
 
         color: "#1a9c60"
@@ -108,10 +123,10 @@ Rectangle {
         visible: !startTimer.running
 
         text: "Exit"
+        anchors.horizontalCenterOffset: 0
 
         MouseArea {
             anchors.fill: parent
-            anchors.bottomMargin: 8
             onClicked: back()
             onPressed: textlogo.anchors.verticalCenter = exitText.verticalCenter
         }
@@ -136,6 +151,102 @@ Rectangle {
             anchors.bottomMargin: 8
             onClicked: back()
             onPressed: textlogo.anchors.verticalCenter = exitText.verticalCenter
+        }
+    }
+
+    Text {
+        id: startGameText1
+        color: "#1a9c60"
+        font.family: quakeFont.name
+        font.pixelSize: 45
+        font.bold: true
+        style: Text.Outline
+        styleColor: "black"
+
+        visible: !startTimer.running
+        x: 199
+        width: 437
+        height: 53
+        text: "Start The Reckoning"
+        anchors.horizontalCenter: startGameText.horizontalCenter
+        anchors.top: startGameText.bottom
+        anchors.topMargin: 30
+
+        MouseArea {
+            anchors.rightMargin: 0
+            anchors.leftMargin: 0
+            anchors.topMargin: 0
+            anchors.fill: parent
+            anchors.bottomMargin: 0
+            onPressed: textlogo.anchors.verticalCenter = startGameText1.verticalCenter
+            onReleased:	{
+                startTimer.start()
+                startQuake1();
+            }
+        }
+    }
+
+    Text {
+        id: startGameText2
+        color: "#1a9c60"
+        font.family: quakeFont.name
+        font.pixelSize: 45
+        font.bold: true
+        style: Text.Outline
+        styleColor: "black"
+
+        visible: !startTimer.running
+        x: 199
+        width: 414
+        height: 55
+        text: "Start Ground Zero"
+        anchors.horizontalCenter: startGameText1.horizontalCenter
+        anchors.top: startGameText1.bottom
+        anchors.topMargin: 30
+
+        MouseArea {
+            anchors.rightMargin: 0
+            anchors.leftMargin: 0
+            anchors.topMargin: 0
+            anchors.fill: parent
+            anchors.bottomMargin: 0
+            onPressed: textlogo.anchors.verticalCenter = startGameText2.verticalCenter
+            onReleased:	{
+                startTimer.start()
+                startQuake2();
+            }
+        }
+    }
+
+    Text {
+        id: startGameText3
+        color: "#1a9c60"
+        font.family: quakeFont.name
+        font.pixelSize: 45
+        font.bold: true
+        style: Text.Outline
+        styleColor: "black"
+
+        visible: !startTimer.running
+        x: 199
+        width: 260
+        height: 55
+        text: "Start Zaero"
+        anchors.horizontalCenter: startGameText2.horizontalCenter
+        anchors.top: startGameText2.bottom
+        anchors.topMargin: 30
+
+        MouseArea {
+            anchors.rightMargin: 0
+            anchors.leftMargin: 0
+            anchors.topMargin: 0
+            anchors.fill: parent
+            anchors.bottomMargin: 0
+            onPressed: textlogo.anchors.verticalCenter = startGameText3.verticalCenter
+            onReleased:	{
+                startTimer.start()
+                startQuake3();
+            }
         }
     }
 
@@ -164,4 +275,26 @@ Rectangle {
         xhr.open("PUT", "file:///fs/images/fmods_apps_data/Quake2/launcher");
         xhr.send(payload);
     }
+
+    function startQuake1() {
+        var xhr = new XMLHttpRequest();
+        var payload = "launch1";
+        xhr.open("PUT", "file:///fs/images/fmods_apps_data/Quake2/launcher1");
+        xhr.send(payload);
+    }
+
+    function startQuake2() {
+        var xhr = new XMLHttpRequest();
+        var payload = "launch2";
+        xhr.open("PUT", "file:///fs/images/fmods_apps_data/Quake2/launcher2");
+        xhr.send(payload);
+    }
+
+    function startQuake3() {
+        var xhr = new XMLHttpRequest();
+        var payload = "launch3";
+        xhr.open("PUT", "file:///fs/images/fmods_apps_data/Quake2/launcher3");
+        xhr.send(payload);
+    }
 }
+

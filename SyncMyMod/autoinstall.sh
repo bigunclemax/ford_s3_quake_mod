@@ -24,9 +24,9 @@
 #####################################################################################################################################################################
 
 # App Name      : Quake 2 + Quake 2 Launcher
-# Author        : BigUncleMax (Quake 2 port for Sync 3) & Au{R}oN (Quake 2 Launcher)
-# Creation date : 2024/05/26
-# Version       : 0.9
+# Author        : BigUncleMax (Quake 2 port for Sync 3) & Au{R}oN (Quake 2 Launcher) & Sanek2033 (DLS The Reckoning, Ground Zero, Zaero)
+# Creation date : 2025/02/24
+# Version       : 1.0
 
 ###############################################################################
 # Custom App Variables                                                        #
@@ -231,6 +231,7 @@ fi
 
 progress 50
 output "Installing ${APP_NAME} App Launcher files..."
+echo "/fs/mp/scripts/quake2_launcher.sh &" >> /fs/mp/scripts/startup_gf.sh
 cp ${SHELL_DIR}/quake2_launcher.sh	/fs/mp/scripts
 cp -R ${LOCAL_APP_PATH}/*	$APIM_APPS_PATH/$APP_AUTHOR/$APP_FOLDER
 chmod +x /fs/mp/scripts/quake2_launcher.sh
@@ -252,6 +253,9 @@ output "Configuring files permissions..."
 chmod +x ${INSTALLATION_DIR}/my-hid
 chmod +x ${INSTALLATION_DIR}/quake2-gles2
 chmod +x ${INSTALLATION_DIR}/quake2_start.sh
+chmod +x ${INSTALLATION_DIR}/quake2_rogue_start.sh
+chmod +x ${INSTALLATION_DIR}/quake2_xatrix_start.sh
+chmod +x ${INSTALLATION_DIR}/quake2_zaero_start.sh
 sleep 1
 
 progress 85
