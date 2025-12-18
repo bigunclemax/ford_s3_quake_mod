@@ -25,8 +25,8 @@
 
 # App Name      : Quake 2 + Quake 2 Launcher
 # Author        : BigUncleMax (Quake 2 port for Sync 3) & Au{R}oN (Quake 2 Launcher) & Sanek2033 (DLS The Reckoning, Ground Zero, Zaero)
-# Creation date : 2025/02/24
-# Version       : 1.0
+# Creation date : 2025/12/15
+# Version       : 1.1
 
 ###############################################################################
 # Custom App Variables                                                        #

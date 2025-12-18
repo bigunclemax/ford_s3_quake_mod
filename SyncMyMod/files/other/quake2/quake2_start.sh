@@ -32,5 +32,7 @@ case "$GAME" in
 		;;
 esac
 
+export SDL_AUDIO_DEVICE_NAME="MCBSP @ 49026000 d1" #BT audio dev C1D1p
+
 (cd ${BASEDIR}; ./quake2-gles2 $GAME_OPT)
 

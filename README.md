@@ -18,20 +18,22 @@ inside the `SyncMyMod\files\other\quake2\baseq2` folder.
 **⚠️ Bluetooth connections are not supported and will not work**  
 
 The game input relies on self written lib on top of QNX usb-hid subsystem.  
-It **supports USB mouse and keyboard** and also it supports several
-game controllers.
+It **supports USB mouse and keyboard** and also it **supports HID compatibe
+game controllers**.
 
 Tested gamepads list:
  - PS4 Dualshock
  - PS5 DualSense
+ - GameSir T3 Lite (GameSir Tegenaria Lite)
 
 This list is not complete, therefore feel free to test others
 and let us know if they works 😉
 
-## Known bugs and limitations
-- No sound.  
-  Sound part in not ported yet.
+## Sound
+To get sound, switch your audio source to Bluetooth or USB before
+launching the game.
 
+## Known bugs and limitations
 - Popup "USB device not supported".  
   Just ignore this message. It doesn't affect to anything.
 
@@ -80,4 +82,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [1.0] - 2025-02-24
 - Updated autoinstall.sh, Quake2.qml, quake2_launcher.sh
 - Added DLC The Reckoning, Ground Zero, Zaero (by Sanek2033)
+
+### [1.1] - 2025-12-17
+- Ported to SDL2
+- Added sound support
 
