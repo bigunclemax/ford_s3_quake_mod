@@ -231,6 +231,7 @@ fi
 
 progress 50
 output "Installing ${APP_NAME} App Launcher files..."
+sed -i '/quake2_launcher\.sh/d' /fs/mp/scripts/startup_gf.sh
 echo "/fs/mp/scripts/quake2_launcher.sh &" >> /fs/mp/scripts/startup_gf.sh
 cp ${SHELL_DIR}/quake2_launcher.sh	/fs/mp/scripts
 cp -R ${LOCAL_APP_PATH}/*	$APIM_APPS_PATH/$APP_AUTHOR/$APP_FOLDER
