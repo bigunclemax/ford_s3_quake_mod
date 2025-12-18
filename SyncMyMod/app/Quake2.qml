@@ -63,7 +63,7 @@ Rectangle {
             onPressed: textlogo.anchors.verticalCenter = startGameText.verticalCenter
             onReleased:	{
                 startTimer.start()
-                startQuake();
+                startQuake("vanilla");
             }
         }
     }
@@ -73,7 +73,7 @@ Rectangle {
         running: false
         repeat: false
         triggeredOnStart: true
-        interval: 7000
+        interval: 15000
         onTriggered: {}
     }
 
@@ -102,7 +102,7 @@ Rectangle {
             onPressed: textlogo.anchors.verticalCenter = startGameText.verticalCenter
             onReleased:	{
                 startTimer.start()
-                startQuake();
+                startQuake("vanilla");
             }
         }
     }
@@ -181,7 +181,7 @@ Rectangle {
             onPressed: textlogo.anchors.verticalCenter = startGameText1.verticalCenter
             onReleased:	{
                 startTimer.start()
-                startQuake1();
+                startQuake("xatrix");
             }
         }
     }
@@ -213,7 +213,7 @@ Rectangle {
             onPressed: textlogo.anchors.verticalCenter = startGameText2.verticalCenter
             onReleased:	{
                 startTimer.start()
-                startQuake2();
+                startQuake("rogue");
             }
         }
     }
@@ -245,7 +245,7 @@ Rectangle {
             onPressed: textlogo.anchors.verticalCenter = startGameText3.verticalCenter
             onReleased:	{
                 startTimer.start()
-                startQuake3();
+                startQuake("zaero");
             }
         }
     }
@@ -269,31 +269,10 @@ Rectangle {
         xhr.send();
     }
 
-    function startQuake() {
+    function startQuake(name) {
         var xhr = new XMLHttpRequest();
-        var payload = "launch";
+        var payload = "launch-" + name;
         xhr.open("PUT", "file:///fs/images/fmods_apps_data/Quake2/launcher");
-        xhr.send(payload);
-    }
-
-    function startQuake1() {
-        var xhr = new XMLHttpRequest();
-        var payload = "launch1";
-        xhr.open("PUT", "file:///fs/images/fmods_apps_data/Quake2/launcher1");
-        xhr.send(payload);
-    }
-
-    function startQuake2() {
-        var xhr = new XMLHttpRequest();
-        var payload = "launch2";
-        xhr.open("PUT", "file:///fs/images/fmods_apps_data/Quake2/launcher2");
-        xhr.send(payload);
-    }
-
-    function startQuake3() {
-        var xhr = new XMLHttpRequest();
-        var payload = "launch3";
-        xhr.open("PUT", "file:///fs/images/fmods_apps_data/Quake2/launcher3");
         xhr.send(payload);
     }
 }

@@ -11,5 +11,19 @@ if [ $? -ne 0 ]; then
 	${HIDD_BIN} -d /tmp/${HIDD_LIB_NAME}
 fi
 
-(cd ${BASEDIR}; ./quake2-gles2)
+GAME=""
+if [ $# -ne 0 ]; then
+	GAME="$1"
+fi
+
+case "$GAME" in
+	"xatrix" | "rogue" | "zaero")
+		GAME_OPT="+set game $GAME"
+		;;
+	*)
+		GAME_OPT=""
+		;;
+esac
+
+(cd ${BASEDIR}; ./quake2-gles2 $GAME_OPT)
 

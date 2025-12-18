@@ -254,9 +254,6 @@ output "Configuring files permissions..."
 chmod +x ${INSTALLATION_DIR}/my-hid
 chmod +x ${INSTALLATION_DIR}/quake2-gles2
 chmod +x ${INSTALLATION_DIR}/quake2_start.sh
-chmod +x ${INSTALLATION_DIR}/quake2_rogue_start.sh
-chmod +x ${INSTALLATION_DIR}/quake2_xatrix_start.sh
-chmod +x ${INSTALLATION_DIR}/quake2_zaero_start.sh
 sleep 1
 
 progress 85
