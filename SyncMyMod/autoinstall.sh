@@ -46,9 +46,12 @@ AUTHOR="BigUncleMax"        # DEVELOPER NAME VISIBLE DURING THE INSTALLATION PRO
 
 PATH=/fs/rwdata/dev:$PATH
 
+SYNCMYMOD_DIR="$(cd "$(dirname "$0")" && pwd)"
+USB0_MP="/fs/usb0"
+
 APIM_APPS_PATH=/fs/mp/fordhmi/qml/hmicustomapps/apps
 APIM_JSON_PATH=/fs/mp/fordhmi/qml/hmicustomapps/apps.json
-LOCAL_APP_PATH=/fs/usb0/SyncMyMod/app/
+LOCAL_APP_PATH="${SYNCMYMOD_DIR}/app/"
 
 DISPLAY=/fs/tmpfs/status
 POPUP=/tmp/popup.txt
@@ -59,7 +62,7 @@ MIN_MODTOOLS_VERSION="2.8"
 
 DEPENDENCY="CUSTOM_APPS_LOADER"
 
-FILES_DIR="/fs/usb0/SyncMyMod/files"
+FILES_DIR="${SYNCMYMOD_DIR}/files"
 BIN_DIR="${FILES_DIR}/bin"
 SHELL_DIR="${FILES_DIR}/shell"
 OTHER_DIR="${FILES_DIR}/other"
@@ -73,7 +76,10 @@ BACKUP_DIR=${FMODS_DATA_DIR}/Quake2_bak
 VERSION=$(cat ${OTHER_DIR}/quake2/version.txt)
 PREV_VERSION=$(cat ${FMODS_DATA_DIR}/Quake2/version.txt)
 
-LOG_DIR="/fs/usb0"
+LOG_DIR="/tmp/"
+if [ -d ${USB0_MP} ]; then
+	LOG_DIR="${USB0_MP}"
+fi
 LOG_FILE=/tmp/install_status.txt
 HWINFO_FILE=/tmp/hardware_info.txt
 
@@ -105,11 +111,14 @@ displayMessage() {
 
 installationTerminated() {
     dump_logs
-	while [ -e /fs/usb0 ]; do
+	while [ -e ${USB0_MP} ]; do
 		sleep 1
 	done
 	
-	output "REBOOT" 3
+	if [ -z ${SKIP_REBOOT+x} ]; then
+		output "REBOOT" 3
+	fi
+
 	exit 0
 }
 
