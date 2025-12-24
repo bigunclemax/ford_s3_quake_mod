@@ -72,6 +72,7 @@ MOD_DATA_DIR="${OTHER_DIR}/quake2"
 FMODS_DATA_DIR=/fs/images/fmods_apps_data
 INSTALLATION_DIR=${FMODS_DATA_DIR}/Quake2/
 BACKUP_DIR=${FMODS_DATA_DIR}/Quake2_bak
+SAVE_DIRS="baseq2/save rogue/save xatrix/save zaero/save"
 
 VERSION=$(cat ${OTHER_DIR}/quake2/version.txt)
 PREV_VERSION=$(cat ${FMODS_DATA_DIR}/Quake2/version.txt)
@@ -227,13 +228,17 @@ else
 	sleep 2
 
 	progress 40
-	if [ ${KEEP_SAVED_GAMES} -eq 1 ] && \
-	   [ -d ${INSTALLATION_DIR}/baseq2/save ]; then
+	if [ ${KEEP_SAVED_GAMES} -eq 1 ]; then
 		output "Backup save game files..."
-
 		rm -rf ${BACKUP_DIR}
-		mkdir -p ${BACKUP_DIR}
-		mv ${INSTALLATION_DIR}/baseq2/save ${BACKUP_DIR}/
+
+		for save_dir in ${SAVE_DIRS}; do
+			if [ -d ${INSTALLATION_DIR}/${save_dir} ]; then
+				mkdir -p $(dirname ${BACKUP_DIR}/${save_dir})
+
+				mv -v ${INSTALLATION_DIR}/${save_dir} ${BACKUP_DIR}/${save_dir} >> $LOG_FILE
+			fi
+		done
 	fi
 	sleep 3
 fi
@@ -266,10 +271,17 @@ chmod +x ${INSTALLATION_DIR}/quake2_start.sh
 sleep 1
 
 progress 85
-if [ -d ${BACKUP_DIR}/save ]; then
+if [ -d ${BACKUP_DIR} ]; then
 	echo "Restore saved games..." > $DISPLAY
 
-	mv ${BACKUP_DIR}/save ${INSTALLATION_DIR}/baseq2
+	for save_dir in ${SAVE_DIRS}; do
+		if [ -d ${BACKUP_DIR}/${save_dir} ]; then
+			mkdir -p $(dirname ${INSTALLATION_DIR}/${save_dir})
+
+			mv -v ${BACKUP_DIR}/${save_dir} ${INSTALLATION_DIR}/${save_dir} >> $LOG_FILE
+		fi
+	done
+
 	rm -rf ${BACKUP_DIR}
 	sleep 3
 fi
