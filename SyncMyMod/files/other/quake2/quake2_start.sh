@@ -9,6 +9,13 @@ ps -A | grep -q my-hid
 if [ $? -ne 0 ]; then
 	cp ${BASEDIR}/${HIDD_LIB_NAME} /tmp/
 	${HIDD_BIN} -d /tmp/${HIDD_LIB_NAME}
+
+	# Sometimes, for unknown reasons, io-hid fails to detect HID
+	# devices until hidview is called.
+	# This issue was observed with my PS4 controller.
+	# The workaround is to run hidview first to "activate"
+	# the HID subsystem.
+	hidview -N /dev/io-hid/my-hid
 fi
 
 GAME=""
